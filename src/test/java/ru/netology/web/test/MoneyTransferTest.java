@@ -64,18 +64,18 @@ public class MoneyTransferTest {
         assertEquals(expectedBalanceSecondCard, actualBalanceSecondCard);
     }
 
-//    @Test
-//    void shouldTransferMoneyFromFirstCardsTwoSecondCardMoreLimit() {
-//        var loginPage = new LoginPage();
-//        var authInfo = DataHelper.getAuthInfo();
-//        var verificationPage = loginPage.validLogin(authInfo);
-//        var verifyInfo = DataHelper.getVerificationCodeFor(authInfo);
-//        var dashboardPage = verificationPage.validVerify(verifyInfo);
-//        var transferPage = dashboardPage.transferCard2();
-//        var amount = DataHelper.getAmount() + 50_000;
-//        transferPage.errorTransferMoreLimit(amount, DataHelper.getFirstCardInfo());
-//
-//    }
+    @Test
+    void shouldTransferMoneyFromFirstCardsTwoSecondCardMoreLimit() {
+        var loginPage = new LoginPage();
+        var authInfo = DataHelper.getAuthInfo();
+        var verificationPage = loginPage.validLogin(authInfo);
+        var verifyInfo = DataHelper.getVerificationCodeFor(authInfo);
+        var dashboardPage = verificationPage.validVerify(verifyInfo);
+        var transferPage = dashboardPage.transferCard2();
+        var amount = DataHelper.getAmount() + 50_000;
+        transferPage.errorTransferMoreLimit(amount, DataHelper.getFirstCardInfo());
+
+    }
 
     @Test
     void shouldTransferMoneyInvalidPassword() {

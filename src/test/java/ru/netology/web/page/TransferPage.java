@@ -36,6 +36,6 @@ public class TransferPage {
         amountField.setValue(String.valueOf(amount));
         fromField.setValue(cardInfo.getCardNumber());
         transferField.click();
-        errorMessageMoreLimit.shouldBe((visible), Duration.ofSeconds(1500));
+        errorMessageMoreLimit.shouldBe((visible), Duration.ofSeconds(15));
     }
 }

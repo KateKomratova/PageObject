@@ -1,6 +1,7 @@
 package ru.netology.web.data;
 
 import lombok.Value;
+import ru.netology.web.page.DashboardPage;
 
 import java.util.Random;
 
@@ -57,9 +58,9 @@ public class DataHelper {
         return new CardInfo("0000 0000 0000 0001");
     }
 
-    public static int getAmount() {
+    public static int getAmount(int cardBalance) {
         Random r = new Random();
-        int amount = r.nextInt(10_000);
+        int amount = r.nextInt(cardBalance);
         return amount;
     }
 }

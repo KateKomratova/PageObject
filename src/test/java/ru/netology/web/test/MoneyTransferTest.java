@@ -17,7 +17,7 @@ public class MoneyTransferTest {
 
     @BeforeEach
     public void setUp() {
-        Configuration.headless = true;
+//        Configuration.headless = true;
         open("http://0.0.0.0:9999");
         Selenide.clearBrowserCookies();
         Selenide.clearBrowserLocalStorage();
@@ -34,7 +34,7 @@ public class MoneyTransferTest {
         var balanceFirstCard = dashboardPage.getFirstCardBalance();
         var balanceSecondCard = dashboardPage.getSecondCardBalance();
         var transferPage = dashboardPage.transferCard1();
-        var amount = DataHelper.getAmount();
+        var amount = DataHelper.getAmount(balanceSecondCard);
         var dashboardPage2 = transferPage.validTransfer(amount, DataHelper.getSecondCardInfo());
         var actualBalanceFirstCard = dashboardPage2.getFirstCardBalance();
         var actualBalanceSecondCard = dashboardPage2.getSecondCardBalance();
@@ -54,7 +54,7 @@ public class MoneyTransferTest {
         var balanceFirstCard = dashboardPage.getFirstCardBalance();
         var balanceSecondCard = dashboardPage.getSecondCardBalance();
         var transferPage = dashboardPage.transferCard2();
-        var amount = DataHelper.getAmount();
+        var amount = DataHelper.getAmount(balanceFirstCard);
         var dashboardPage2 = transferPage.validTransfer(amount, DataHelper.getFirstCardInfo());
         var actualBalanceFirstCard = dashboardPage2.getFirstCardBalance();
         var actualBalanceSecondCard = dashboardPage2.getSecondCardBalance();
@@ -71,8 +71,9 @@ public class MoneyTransferTest {
         var verificationPage = loginPage.validLogin(authInfo);
         var verifyInfo = DataHelper.getVerificationCodeFor(authInfo);
         var dashboardPage = verificationPage.validVerify(verifyInfo);
+        var balanceFirstCard = dashboardPage.getFirstCardBalance();
         var transferPage = dashboardPage.transferCard2();
-        var amount = DataHelper.getAmount() + 50_000;
+        var amount = DataHelper.getAmount(balanceFirstCard) + 50_000;
         transferPage.errorTransferMoreLimit(amount, DataHelper.getFirstCardInfo());
 
     }
@@ -81,14 +82,14 @@ public class MoneyTransferTest {
     void shouldTransferMoneyInvalidPassword() {
         var loginPage = new LoginPage();
         var authInfo = DataHelper.getInvalidPassword();
-        loginPage.invalidPassword(authInfo);
+        loginPage.invalidLoginOrPassword(authInfo);
     }
 
     @Test
     void shouldTransferMoneyInvalidLogin() {
         var loginPage = new LoginPage();
         var authInfo = DataHelper.getInvalidLogin();
-        loginPage.invalidLogin(authInfo);
+        loginPage.invalidLoginOrPassword(authInfo);
     }
 
     @Test
@@ -107,8 +108,9 @@ public class MoneyTransferTest {
         var verificationPage = loginPage.validLogin(authInfo);
         var verifyInfo = DataHelper.getVerificationCodeFor(authInfo);
         var dashboardPage = verificationPage.validVerify(verifyInfo);
+        var balanceFirstCard = dashboardPage.getFirstCardBalance();
         var transferPage = dashboardPage.transferCard2();
-        var amount = DataHelper.getAmount();
+        var amount = DataHelper.getAmount(balanceFirstCard);
         transferPage.errorTransfer(amount, DataHelper.getInvalidFirstCardInfo());
 
     }

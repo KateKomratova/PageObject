@@ -18,24 +18,25 @@ public class TransferPage {
     private SelenideElement errorField = $("[data-test-id=error-notification]");
     private SelenideElement errorMessageMoreLimit = $(withText("Ошибка! Недостаточно средств на карте!"));
 
-    public DashboardPage validTransfer (int amount, DataHelper.CardInfo cardInfo) {
+
+    public void getTransferMoney(int amount, DataHelper.CardInfo cardInfo) {
         amountField.setValue(String.valueOf(amount));
         fromField.setValue(cardInfo.getCardNumber());
         transferField.click();
+    }
+
+    public DashboardPage validTransfer(int amount, DataHelper.CardInfo cardInfo) {
+        getTransferMoney(amount, cardInfo);
         return new DashboardPage();
     }
 
-    public void errorTransfer (int amount, DataHelper.CardInfo cardInfo) {
-        amountField.setValue(String.valueOf(amount));
-        fromField.setValue(cardInfo.getCardNumber());
-        transferField.click();
-        errorField.shouldBe(visible).shouldHave(text("Ошибка! Произошла ошибка"), Duration.ofSeconds(1500));
+    public void errorTransfer(int amount, DataHelper.CardInfo cardInfo) {
+        getTransferMoney(amount, cardInfo);
+        errorField.shouldBe(visible).shouldHave(text("Ошибка! Произошла ошибка"), Duration.ofSeconds(15));
     }
 
-    public void errorTransferMoreLimit (int amount, DataHelper.CardInfo cardInfo) {
-        amountField.setValue(String.valueOf(amount));
-        fromField.setValue(cardInfo.getCardNumber());
-        transferField.click();
+    public void errorTransferMoreLimit(int amount, DataHelper.CardInfo cardInfo) {
+        getTransferMoney(amount, cardInfo);
         errorMessageMoreLimit.shouldBe((visible), Duration.ofSeconds(15));
     }
 }

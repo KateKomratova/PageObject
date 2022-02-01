@@ -17,7 +17,7 @@ public class MoneyTransferTest {
 
     @BeforeEach
     public void setUp() {
-//        Configuration.headless = true;
+        Configuration.headless = true;
         open("http://0.0.0.0:9999");
         Selenide.clearBrowserCookies();
         Selenide.clearBrowserLocalStorage();
